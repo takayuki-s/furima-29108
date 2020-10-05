@@ -20,17 +20,17 @@
 
 ## items テーブル
 
-| Column          | Type       | Options                        |
-| --------------- | ---------- | ------------------------------ |
-| item_name       | string     | null: false                    |
-| item_detail     | text       | null: false                    |
-| item_status     | integer    | null: false                    |
-| delivery_charge | integer    | null: false                    |
-| shipment_source | integer    | null: false                    |
-| days_to_ship    | integer    | null: false                    |
-| item_category   | integer    | null: false                    |
-| user      vvv   | references | null: false, foreign_key: true |
-| item_price      | integer    | null: false                    |
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| name               | string     | null: false                    |
+| detail             | text       | null: false                    |
+| status_id          | integer    | null: false                    |
+| delivery_charge_id | integer    | null: false                    |
+| shipment_source_id | integer    | null: false                    |
+| days_to_ship_id    | integer    | null: false                    |
+| item_category_id   | integer    | null: false                    |
+| user               | references | null: false, foreign_key: true |
+| item_price         | integer    | null: false                    |
 
 ### Association
 
@@ -54,8 +54,8 @@
 
 | Column         | Type       | Options                        |
 | -------------- | ---------- | ------------------------------ |
-| post_number    | string     |                                |
-| prefecture     | integer    | null: false                    |
+| post_number    | string     | null: false                    |
+| prefecture_id  | integer    | null: false                    |
 | municipalities | string     | null: false                    |
 | address        | string     | null: false                    |
 | building       | string     |                                |

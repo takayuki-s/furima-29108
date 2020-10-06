@@ -28,9 +28,9 @@
 | delivery_charge_id | integer    | null: false                    |
 | shipment_source_id | integer    | null: false                    |
 | days_to_ship_id    | integer    | null: false                    |
-| item_category_id   | integer    | null: false                    |
+| category_id        | integer    | null: false                    |
 | user               | references | null: false, foreign_key: true |
-| item_price         | integer    | null: false                    |
+| price              | integer    | null: false                    |
 
 ### Association
 

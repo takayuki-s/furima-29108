@@ -6,5 +6,6 @@ class AddNickNameToUsers < ActiveRecord::Migration[6.0]
     add_column :users, :first_name, :string, null: false
     add_column :users, :first_name_reading, :string, null: false
     add_column :users, :birthday, :date, null: false
+    add_column :users, :password, :string, null: false
   end
 end

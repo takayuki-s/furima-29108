@@ -126,7 +126,7 @@
     <%= link_to '新規投稿商品', "#", class: "subtitle" %>
     <ul class='item-lists'>
       <% if @items.present? %>
-        <%= render partial: 'item-list', collection: @items, as: "item" %>| %>
+        <%= render partial: 'item-list', collection: @items, as: "item" %>
       <% else %>
         <%# 商品がない場合のダミー %>
         <li class='list'>

@@ -1,4 +1,4 @@
-window.addEventListener('load', function(){
+window.addEventListener('load', function price_set(){
 
   const priceInput = document.getElementById("item-price");
   const addTaxDom = document.getElementById("add-tax-price");
@@ -12,3 +12,4 @@ window.addEventListener('load', function(){
 }
 );
 
+setInterval(price_set, 1000);

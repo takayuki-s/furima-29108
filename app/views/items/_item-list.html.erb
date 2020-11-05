@@ -7,6 +7,7 @@
             <% @orders.each do |order| %>
               <% if order.item_id == item.id %>
                 <span>Sold Out!!</span>
+                <% break %>
               <% end %>
             <% end %>
           </div>

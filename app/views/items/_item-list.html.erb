@@ -3,10 +3,13 @@
         <div class='item-img-content'>
           <%= image_tag item.image, class: "item-img" %>
 
-          <%# 商品購入機能実装後に記述 %>
-          <%# <div class='sold-out'> %>
-            <%# <span>Sold Out!!</span> %>
-          <%# </div> %>
+          <div class='sold-out'>
+            <% @orders.each do |order| %>
+              <% if order.item_id == item.id %>
+                <span>Sold Out!!</span>
+              <% end %>
+            <% end %>
+          </div>
 
         </div>
         <div class='item-info'>

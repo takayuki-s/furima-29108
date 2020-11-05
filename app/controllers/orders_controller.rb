@@ -1,16 +1,15 @@
 class OrdersController < ApplicationController
   before_action :move_to_login
   before_action :item_user_check
-  before_action :set_item
+  before_action :set_item, only: [:index, :create]
+  before_action :order_check
 
   def index
     @order_info = OrderInfo.new
-    set_item
   end
 
   def create
     @order_info = OrderInfo.new(order_params)
-    set_item
       if @order_info.valid?
         pay_item
         @order_info.save
@@ -48,6 +47,16 @@ class OrdersController < ApplicationController
 
   def set_item
     @item = Item.find(params[:item_id])
+  end
+
+  def order_check
+    @orders = Order.all
+      @orders.each do |order|
+        if order.item_id == @item.id
+          redirect_to root_path
+          return
+        end
+      end
   end
 
 end

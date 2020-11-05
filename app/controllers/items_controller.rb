@@ -2,9 +2,10 @@ class ItemsController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :user_check, only: [:edit, :update, :destroy]
+  before_action :order_set, only: [:index, :show]
 
   def index
-    @items = Item.all
+    @items = Item.all.order("created_at DESC")
   end
 
   def new
@@ -59,5 +60,9 @@ class ItemsController < ApplicationController
     unless current_user.id == @item.user_id
       render :show
     end
+  end
+
+  def order_set
+    @orders = Order.includes(:item)
   end
 end

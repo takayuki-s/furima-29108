@@ -10,27 +10,27 @@ class OrdersController < ApplicationController
 
   def create
     @order_info = OrderInfo.new(order_params)
-      if @order_info.valid?
-        pay_item
-        @order_info.save
-        redirect_to root_path
-      else
-        render :index
-      end
+    if @order_info.valid?
+      pay_item
+      @order_info.save
+      redirect_to root_path
+    else
+      render :index
+    end
   end
 
   private
 
   def order_params
-    params.require(:order_info).permit(:post_number, :prefecture_id, :municipalities, :address, :building, :tel).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token] )
+    params.require(:order_info).permit(:post_number, :prefecture_id, :municipalities, :address, :building, :tel).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
-    amount: @item.price,
-    card: order_params[:token],
-    currency: 'jpy'
+      amount: @item.price,
+      card: order_params[:token],
+      currency: 'jpy'
     )
   end
 
@@ -40,9 +40,7 @@ class OrdersController < ApplicationController
 
   def item_user_check
     set_item
-    if current_user.id == @item.user_id
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user.id == @item.user_id
   end
 
   def set_item
@@ -51,12 +49,11 @@ class OrdersController < ApplicationController
 
   def order_check
     @orders = Order.all
-      @orders.each do |order|
-        if order.item_id == @item.id
-          redirect_to root_path
-          return
-        end
+    @orders.each do |order|
+      if order.item_id == @item.id
+        redirect_to root_path
+        return
       end
+    end
   end
-
 end

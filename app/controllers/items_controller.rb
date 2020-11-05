@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   before_action :order_set, only: [:index, :show]
 
   def index
-    @items = Item.all.order("created_at DESC")
+    @items = Item.all.order('created_at DESC')
   end
 
   def new
@@ -37,9 +37,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if @item.destroy
-      redirect_to root_path
-    end
+    redirect_to root_path if @item.destroy
   end
 
   private
@@ -57,9 +55,7 @@ class ItemsController < ApplicationController
   end
 
   def user_check
-    unless current_user.id == @item.user_id
-      render :show
-    end
+    render :show unless current_user.id == @item.user_id
   end
 
   def order_set

@@ -48,12 +48,8 @@ class OrdersController < ApplicationController
   end
 
   def order_check
-    @orders = Order.all
-    @orders.each do |order|
-      if order.item_id == @item.id
-        redirect_to root_path
-        return
-      end
+    if @item.order != nil
+      redirect_to root_path
     end
   end
 end

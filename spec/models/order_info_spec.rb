@@ -14,6 +14,10 @@ RSpec.describe OrderInfo, type: :model do
     it 'すべての値が正しく入力されていれば保存できること' do
       expect(@order_info).to be_valid
     end
+    it '建物名（building）が空でも登録できること' do
+      @order_info.building = nil
+      @order_info.valid?
+    end
     it '郵便番号が空だと保存できないこと' do
       @order_info.post_number = nil
       @order_info.valid?
@@ -23,8 +27,6 @@ RSpec.describe OrderInfo, type: :model do
       @order_info.post_number = '1234567'
       @order_info.valid?
       expect(@order_info.errors.full_messages). to include('Post number is invalid. Include hyphen(-)')
-    end
-    it 'name_readingが空だと保存できないこと' do
     end
     it '郵便番号にハイフンの位置を間違えると保存できないこと' do
       @order_info.post_number = '12-34567'
@@ -60,6 +62,18 @@ RSpec.describe OrderInfo, type: :model do
       @order_info.token = nil
       @order_info.valid?
       expect(@order_info.errors.full_messages). to include("Token can't be blank")
+    end
+    it '購入者（user_id）が空では登録できないこと' do
+      @order_info.user_id = nil
+      sleep 1
+      @order_info.valid?
+      expect(@order_info.errors.full_messages). to include("User can't be blank")
+    end
+    it '商品（item_id）が空では登録できないこと' do
+      @order_info.item_id = nil
+      sleep 1
+      @order_info.valid?
+      expect(@order_info.errors.full_messages). to include("Item can't be blank")
     end
   end
 end

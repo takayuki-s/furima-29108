@@ -3,7 +3,12 @@ require 'rails_helper'
 RSpec.describe OrderInfo, type: :model do
   describe '購入情報の保持' do
     before do
-      @order_info = FactoryBot.build(:order_info)
+      buyer = FactoryBot.create(:user)
+      seller = FactoryBot.create(:user, email: 'aaaa111@gmail.com')
+      item = FactoryBot.build(:item, user_id: seller.id)
+      item.image = fixture_file_upload('app/assets/images/star.png')
+      item.save
+      @order_info = FactoryBot.build(:order_info, user_id: buyer.id, item_id: item.id)
     end
 
     it 'すべての値が正しく入力されていれば保存できること' do
@@ -45,6 +50,11 @@ RSpec.describe OrderInfo, type: :model do
       @order_info.tel = '０９０１２３４５６７８'
       @order_info.valid?
       expect(@order_info.errors.full_messages). to include('Tel is invalid')
+    end
+    it '電話番号は11桁以内でないと保存できないこと' do
+      @order_info.tel = '090123456789'
+      @order_info.valid?
+      expect(@order_info.errors.full_messages). to include('Tel is too long (maximum is 11 characters)')
     end
     it 'トークンが空では登録できないこと' do
       @order_info.token = nil

@@ -7,7 +7,7 @@ class OrderInfo
     validates :prefecture_id
     validates :municipalities
     validates :address
-    validates :tel, format: { with: /\A[0-9]+\z/ }
+    validates :tel, format: { with: /\A[0-9]+\z/ }, length: { maximum: 11 }
     validates :token
   end
 

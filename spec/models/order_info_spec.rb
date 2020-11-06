@@ -16,7 +16,7 @@ RSpec.describe OrderInfo, type: :model do
     end
     it '建物名（building）が空でも登録できること' do
       @order_info.building = nil
-      @order_info.valid?
+      expect(@order_info).to be_valid
     end
     it '郵便番号が空だと保存できないこと' do
       @order_info.post_number = nil

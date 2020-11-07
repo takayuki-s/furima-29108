@@ -2,9 +2,10 @@ class ItemsController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :user_check, only: [:edit, :update, :destroy]
+  before_action :order_set, only: [:index, :show]
 
   def index
-    @items = Item.all
+    @items = Item.all.order('created_at DESC')
   end
 
   def new
@@ -36,9 +37,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if @item.destroy
-      redirect_to root_path
-    end
+    redirect_to root_path if @item.destroy
   end
 
   private
@@ -56,8 +55,10 @@ class ItemsController < ApplicationController
   end
 
   def user_check
-    unless current_user.id == @item.user_id
-      render :show
-    end
+    render :show unless current_user.id == @item.user_id
+  end
+
+  def order_set
+    @orders = Order.includes(:item)
   end
 end
